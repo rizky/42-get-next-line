@@ -7,6 +7,8 @@
 
 # define BUFF_SIZE 8
 
+# define ALLOCATED(x) if (!x) return (-1);
+
 int		get_next_line(int fd, char **line);
 
 #endif

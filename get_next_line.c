@@ -2,17 +2,18 @@
 
 int		get_next_line(int fd, char **line)
 {
-	char	*buf;
+	char	buf[BUFF_SIZE + 1];
 	int		ret;
 
-	if (fd == -1)
+	if ((fd < 0 || line == NULL || read(fd, buf, 0) < 0))
 		return (0);
-	(*line) = (char*)malloc(sizeof(char));
-	buf = (char*)malloc(sizeof(char) * (BUFF_SIZE + 1));
+	ALLOCATED((*line = ft_strnew(1)));
 	while ((ret = read(fd, buf, BUFF_SIZE)))
 	{
 		buf[ret] = '\0';
-		(*line) = ft_strjoin((*line), buf);
+		ALLOCATED(((*line) = ft_strjoin((*line), buf)));
 	}
+	if (ret < BUFF_SIZE && !ft_strlen((*line)))
+		return (0);
 	return (1);
 }
