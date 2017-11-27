@@ -54,10 +54,11 @@ fclean: clean remlib
 re: fclean all
 
 test: re
-	./gnl test.txt 
+	@./gnl test.txt 
 
 run-debug: debug
-	lldb a.out
+	@lldb a.out
 
 run: re
 	./gnl test.txt 
+	./gnl test.txt test2.txt

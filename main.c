@@ -18,20 +18,25 @@ int		main(int argc, char **argv)
 			ft_putendl("-----");
 			free(line);
 		}
+		close(fd);
 	}
 	else
 	{
 		fd = open(argv[1], O_RDONLY);
 		fd2 = open(argv[2], O_RDONLY);
-		get_next_line(fd, &line);
-		get_next_line(fd2, &line);
-		get_next_line(fd, &line);
-	}
-	if (argc == 2)
-		close(fd);
-	else
+		while (get_next_line(fd, &line) == 1)
 		{
-			close(fd);
-			close(fd2);
+			ft_putendl(line);
+			ft_putendl("-----");
+			free(line);
+			if (get_next_line(fd2, &line) == 1)
+			{
+				ft_putendl(line);
+				ft_putendl("*****");
+				free(line);
+			}
 		}
+		close(fd);
+		close(fd2);
+	}
 }

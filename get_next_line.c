@@ -20,7 +20,7 @@ t_list	*choose_file(t_list **files, int fd)
 	file = *files;
 	while (file)
 	{
-		if  (((t_file*)((file->content)))->fd == fd)
+		if (((t_file*)((file->content)))->fd == fd)
 			return (file);
 		file = file->next;
 	}
@@ -39,18 +39,20 @@ int		get_next_line(int fd, char **line)
 	if ((fd <= 0 || line == NULL || read(fd, buf, 0) < 0))
 		return (0);
 	file = choose_file(&files, fd);
-	if (!((t_file*)((file->content)))->content)
-		ALLOCATED((((t_file*)((file->content)))->content = ft_strnew(1)));
+	if (!CONTENT(file))
+		ALLOCATED((CONTENT(file) = ft_strnew(1)));
 	while ((ret = read(fd, buf, BUFF_SIZE)))
 	{
 		buf[ret] = '\0';
-		ALLOCATED(((((t_file*)((file->content)))->content) = ft_strjoin((((t_file*)((file->content)))->content), buf)));
-		if (ft_strchr((((t_file*)((file->content)))->content), '\n'))
-			break;
+		ALLOCATED((CONTENT(file) = ft_strjoin(CONTENT(file), buf)));
+		if (ft_strchr(CONTENT(file), '\n'))
+			break ;
 	}
-	*line = ft_strsplit(((t_file*)((file->content)))->content, '\n')[0];
-	if (ret < BUFF_SIZE && !ft_strlen((*line)))
+	*line = ft_strsplit(CONTENT(file), '\n')[0];
+	if (ret < BUFF_SIZE && (*line) == NULL)
 		return (0);
-	((t_file*)((file->content)))->content = ft_strchr((((t_file*)((file->content)))->content), '\n') + 1;
+	CONTENT(file) = ft_strchr(CONTENT(file), '\n');
+	if (CONTENT(file))
+		CONTENT(file)++;
 	return (1);
 }
