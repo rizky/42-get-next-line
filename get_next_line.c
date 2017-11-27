@@ -25,6 +25,7 @@ t_list	*choose_file(t_list **files, int fd)
 		file = file->next;
 	}
 	f.fd = fd;
+	f.content = ft_strnew(1);
 	ft_lstadd((files), ft_lstnew((void*)&f, sizeof(t_file)));
 	return (*files);
 }
@@ -35,24 +36,25 @@ int		get_next_line(int fd, char **line)
 	int				ret;
 	static t_list	*files;
 	t_list			*file;
+	int				i;
 
-	if ((fd <= 0 || line == NULL || read(fd, buf, 0) < 0))
-		return (0);
+	if ((fd < 0 || line == NULL || read(fd, buf, 0) < 0))
+		return (-1);
 	file = choose_file(&files, fd);
-	if (!CONTENT(file))
-		ALLOCATED((CONTENT(file) = ft_strnew(1)));
+	ALLOCATED((*line = ft_strnew(1)));
 	while ((ret = read(fd, buf, BUFF_SIZE)))
 	{
 		buf[ret] = '\0';
 		ALLOCATED((CONTENT(file) = ft_strjoin(CONTENT(file), buf)));
-		if (ft_strchr(CONTENT(file), '\n'))
+		if (ft_strchr(buf, '\n'))
 			break ;
 	}
-	*line = ft_strsplit(CONTENT(file), '\n')[0];
-	if (ret < BUFF_SIZE && (*line) == NULL)
+	if (ret < BUFF_SIZE && !ft_strlen(CONTENT(file)))
 		return (0);
-	CONTENT(file) = ft_strchr(CONTENT(file), '\n');
-	if (CONTENT(file))
-		CONTENT(file)++;
+	*line = ft_strsplit(CONTENT(file), '\n')[0];
+	i = ft_strlen(*line);
+	(i < (int)ft_strlen(CONTENT(file)))
+		? CONTENT(file) += (i + 1)
+		: ft_strclr(CONTENT(file));
 	return (1);
 }
