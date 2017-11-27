@@ -78,7 +78,7 @@ int		get_next_line(int fd, char **line)
 	int				ret;
 	static t_list	*files;
 	t_list			*file;
-	int				len;
+	size_t			len;
 
 	if ((fd < 0 || line == NULL || read(fd, buf, 0) < 0))
 		return (-1);
