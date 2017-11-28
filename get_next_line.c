@@ -52,7 +52,7 @@ int		get_next_line(int fd, char **line)
 	ret = ft_strlen(CONTENT(file));
 	if (ft_strchr(CONTENT(file), '\n'))
 		ret = ft_strchr(CONTENT(file), '\n') - CONTENT(file);
-	*line = ft_strncpy(ft_strnew(ret), CONTENT(file), ret);
+	ALLOCATED((*line = ft_strncpy(ft_strnew(ret), CONTENT(file), ret)));
 	(ret < ft_strlen(CONTENT(file)))
 		? CONTENT(file) += (ret + 1)
 		: ft_strclr(CONTENT(file));
