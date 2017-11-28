@@ -26,6 +26,7 @@ typedef struct	s_file
 {
 	int			fd;
 	char		*content;
+	char		*content_start;
 }				t_file;
 
 int				get_next_line(int fd, char **line);
