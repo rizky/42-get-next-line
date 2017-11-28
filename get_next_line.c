@@ -30,6 +30,21 @@ t_list	*choose_file(t_list **files, int fd)
 	return (*files);
 }
 
+char	*retrive_line(char **content)
+{
+	char	*line;
+	size_t	len;
+
+	len = ft_strlen(*content);
+	if (ft_strchr(*content, '\n'))
+		len = ft_strchr(*content, '\n') - *content;
+	ISNULL((line = ft_strncpy(ft_strnew(len), *content, len)));
+	(len < ft_strlen(*content))
+		? *content += (len + 1)
+		: ft_strclr(*content);
+	return (line);
+}
+
 int		get_next_line(int fd, char **line)
 {
 	char			buf[BUFF_SIZE + 1];
@@ -49,12 +64,6 @@ int		get_next_line(int fd, char **line)
 	}
 	if (ret < BUFF_SIZE && !ft_strlen(CONTENT(file)))
 		return (0);
-	ret = ft_strlen(CONTENT(file));
-	if (ft_strchr(CONTENT(file), '\n'))
-		ret = ft_strchr(CONTENT(file), '\n') - CONTENT(file);
-	ALLOCATED((*line = ft_strncpy(ft_strnew(ret), CONTENT(file), ret)));
-	(ret < ft_strlen(CONTENT(file)))
-		? CONTENT(file) += (ret + 1)
-		: ft_strclr(CONTENT(file));
+	ALLOCATED((*line = retrive_line(&CONTENT(file))));
 	return (1);
 }

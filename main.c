@@ -10,7 +10,8 @@ int		main(int argc, char **argv)
 	fd2 = 0;
 	if (argc == 1)
 		fd = 0;
-	else if (argc == 2){
+	else if (argc == 2)
+	{
 		fd = open(argv[1], O_RDONLY);
 		while (get_next_line(fd, &line) == 1)
 		{
