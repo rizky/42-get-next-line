@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-t_list	*manage_file(t_list **files, int fd)
+t_list	*choose_file(t_list **files, int fd)
 {
 	t_list	*file;
 	t_file	f;
@@ -26,23 +26,50 @@ t_list	*manage_file(t_list **files, int fd)
 	}
 	f.fd = fd;
 	f.content = ft_strnew(1);
-	f.offset = 0;
 	ft_lstadd((files), ft_lstnew((void*)&f, sizeof(t_file)));
 	return (*files);
 }
 
-void	delete_file(void *file, size_t size)
+char	*ft_strjoinch(char const *s1, char c)
 {
-	size = 0;
-	ft_strdel(&(((t_file*)file)->content));
+	char	*new_str;
+	size_t	i;
+	size_t	s1_len;
+
+	if (!s1 || !c)
+		return (NULL);
+	s1_len = ft_strlen(s1);
+	new_str = ft_strnew(s1_len + 1);
+	if (!new_str)
+		return (NULL);
+	i = -1;
+	while (++i < s1_len)
+		*(new_str + i) = *(s1 + i);
+	*(new_str + i) = c;
+	return (new_str);
 }
 
-int		compare_file(void *file1, void *file2)
+int			ft_copyuntil(char **dst, char *src, char c)
 {
-	if ((((t_file*)file1)->fd)== (((t_file*)file2)->fd))
-		return 1;
-	else
-		return 0;
+	int		i;
+	int		count;
+	int		pos;
+
+	i = -1;
+	count = 0;
+	while (src[++i])
+		if (src[i] == c)
+			break ;
+	pos = i;
+	if (!(*dst = ft_strnew(i)))
+		return (0);
+	while (src[count] && count < i)
+	{
+		if (!(*dst = ft_strjoinch(*dst, src[count])))
+			return (0);
+		count++;
+	}
+	return (pos);
 }
 
 int		get_next_line(int fd, char **line)
@@ -51,23 +78,20 @@ int		get_next_line(int fd, char **line)
 	int				ret;
 	static t_list	*files;
 	t_list			*file;
-	size_t			len;
+	size_t				len;
 
 	if ((fd < 0 || line == NULL || read(fd, buf, 0) < 0))
 		return (-1);
-	file = manage_file(&files, fd);
+	file = choose_file(&files, fd);
 	while ((ret = read(fd, buf, BUFF_SIZE)))
 	{
 		buf[ret] = '\0';
-		ALLOCATED((FILE->content = ft_strjoin(CONTENT(file), buf)));
+		ALLOCATED((CONTENT(file) = ft_strjoin(CONTENT(file), buf)));
 		if (ft_strchr(CONTENT(file), '\n'))
 			break ;
 	}
 	if (ret < BUFF_SIZE && !ft_strlen(CONTENT(file)))
-	{
-		ft_lstremoveif(&files, FILE->content, &compare_file, &delete_file);
 		return (0);
-	}
 	if (ft_strchr(CONTENT(file), '\n'))
 		len = ft_strchr(CONTENT(file), '\n') - CONTENT(file);
 	else
@@ -75,7 +99,7 @@ int		get_next_line(int fd, char **line)
 	ALLOCATED((*line = ft_strnew(len)));
 	*line = ft_strncpy(*line, CONTENT(file), len);
 	(len < ft_strlen(CONTENT(file)))
-		? OFFSET(file) += (len + 1)
-		: ft_strclr(FILE->content);
+		? CONTENT(file) += (len + 1)
+		: ft_strclr(CONTENT(file));
 	return (1);
 }

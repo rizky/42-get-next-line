@@ -94,8 +94,8 @@ void			ft_lstaddlast(t_list **alst, t_list *new);
 t_list			*ft_strsplit_tolst(char const *s, char c);
 void			ft_lstclear(t_list **begin_list);
 t_list			*ft_lstfind(t_list *begin_list, void *data_ref, int (*cmp)());
-void			ft_lstremoveif(t_list **begin_list, void *data_ref, int (*cmp)(),
-				void (*del)(void*, size_t));
+void			ft_lstremoveif(t_list **begin_list,
+				void *data_ref, int (*cmp)());
 void			ft_lstmerge(t_list **begin_list1, t_list *begin_list2);
 t_list			*ft_lstlast(t_list *begin_list);
 void			ft_lstrev(t_list **begin_list);
