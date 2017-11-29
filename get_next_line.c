@@ -46,20 +46,6 @@ char	*retrive_line(char **content)
 	return (line);
 }
 
-void	delete_file(void *file, size_t size)
-{
-	size = 0;
-	ft_strdel(&(((t_file*)file)->content_start));
-}
-
-int		compare_file(void *file1, void *file2)
-{
-	if ((((t_file*)file1)->fd) == (((t_file*)file2)->fd))
-		return (1);
-	else
-		return (0);
-}
-
 int		get_next_line(int fd, char **line)
 {
 	char			buf[BUFF_SIZE + 1];
@@ -80,10 +66,7 @@ int		get_next_line(int fd, char **line)
 			break ;
 	}
 	if (ret < BUFF_SIZE && !ft_strlen(CONTENT(file)))
-	{
-		ft_lstremoveif(&files, file->content, &compare_file, &delete_file);
 		return (0);
-	}
 	ALLOCATED((*line = retrive_line(&CONTENT(file))));
 	return (1);
 }
