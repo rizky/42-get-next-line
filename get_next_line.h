@@ -21,6 +21,7 @@
 # define ALLOCATED(x) if (!x) return (-1);
 # define ISNULL(x) if (!x) return (NULL);
 # define CONTENT(x) ((t_file*)((x->content)))->content
+# define START(x) ((t_file*)((x->content)))->content_start
 
 typedef struct	s_file
 {

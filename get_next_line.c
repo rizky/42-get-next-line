@@ -74,6 +74,8 @@ int		get_next_line(int fd, char **line)
 	{
 		buf[ret] = '\0';
 		ALLOCATED((CONTENT(file) = ft_strjoin(CONTENT(file), buf)));
+		ft_strdel(&(START(file)));
+		START(file) = CONTENT(file);
 		if (ft_strchr(CONTENT(file), '\n'))
 			break ;
 	}
