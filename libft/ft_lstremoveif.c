@@ -16,6 +16,7 @@ void	ft_lstremoveif(t_list **begin_list, void *data_ref,
 		int (*cmp)(), void (*del)(void*, size_t))
 {
 	t_list *temp;
+
 	if (!(*begin_list))
 		return ;
 	if ((*begin_list)->next)
