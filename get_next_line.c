@@ -40,9 +40,7 @@ char	*retrive_line(char **content)
 	if (ft_strchr(*content, '\n'))
 		len = ft_strchr(*content, '\n') - *content;
 	ISNULL((line = ft_strncpy(ft_strnew(len), *content, len)));
-	(len < ft_strlen(*content))
-		? *content += (len + 1)
-		: ft_strclr(*content);
+	*content += (len + 1);
 	return (line);
 }
 
