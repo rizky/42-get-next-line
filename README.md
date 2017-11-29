@@ -29,3 +29,6 @@ Legend: (.) Ok / (F) Fail / (S) Segfault / (B) Bus error / (T) Timeout / (A) Abo
 [ ----------END OF UNIT TESTS---------- ]
 
 >>>> Result: 12/21 test suites passed. 12/21 tests passed (dots).
+
+Check if buff = 0
+and check if line == NULL;
