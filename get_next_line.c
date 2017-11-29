@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-t_list	*choose_file(t_list **files, int fd)
+t_list	*handle_file(t_list **files, int fd)
 {
 	t_list	*file;
 	t_file	f;
@@ -69,7 +69,7 @@ int		get_next_line(int fd, char **line)
 
 	if ((fd < 0 || line == NULL || read(fd, buf, 0) < 0))
 		return (-1);
-	file = choose_file(&files, fd);
+	file = handle_file(&files, fd);
 	while ((ret = read(fd, buf, BUFF_SIZE)))
 	{
 		buf[ret] = '\0';
