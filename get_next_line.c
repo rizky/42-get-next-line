@@ -36,11 +36,18 @@ char	*retrive_line(char **content)
 	char	*line;
 	size_t	len;
 
-	len = ft_strlen(*content) - 1;
 	if (ft_strchr(*content, '\n'))
+	{
 		len = ft_strchr(*content, '\n') - *content;
-	ISNULL((line = ft_strncpy(ft_strnew(len), *content, len)));
-	*content += (len + 1);
+		line = ft_strncpy(ft_strnew(len), *content, len);
+		*content += (len + 1); 
+	}
+	else
+	{
+		len = ft_strlen(*content);
+		line = ft_strncpy(ft_strnew(len), *content, len);
+		*content += len; 
+	}
 	return (line);
 }
 

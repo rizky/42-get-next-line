@@ -18,6 +18,7 @@ int		main(int argc, char **argv)
 	int		fd2;
 	char	*line;
 
+	line = NULL;
 	fd = 0;
 	fd2 = 0;
 	if (argc == 1)
