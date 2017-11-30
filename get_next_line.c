@@ -51,6 +51,22 @@ char	*retrive_line(char **content)
 	return (line);
 }
 
+int		is_binary(const void *data)
+{
+   	size_t			i;
+	unsigned char	*dst_p;
+
+	i = 0;
+	dst_p = (unsigned char *)data;
+	while (i < sizeof(data))
+	{
+		if (!ft_isascii(dst_p[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int		get_next_line(int fd, char **line)
 {
 	char			buf[BUFF_SIZE + 1];
@@ -67,6 +83,8 @@ int		get_next_line(int fd, char **line)
 		ALLOCATED((CONTENT(file) = ft_strjoin(CONTENT(file), buf)));
 		ft_strdel(&(START(file)));
 		START(file) = CONTENT(file);
+		if (is_binary(buf))
+			return (-1);
 		if (ft_strchr(CONTENT(file), '\n'))
 			break ;
 	}
