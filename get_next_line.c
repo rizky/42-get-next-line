@@ -36,7 +36,7 @@ char	*retrive_line(char **content)
 	char	*line;
 	size_t	len;
 
-	len = ft_strlen(*content);
+	len = ft_strlen(*content) - 1;
 	if (ft_strchr(*content, '\n'))
 		len = ft_strchr(*content, '\n') - *content;
 	ISNULL((line = ft_strncpy(ft_strnew(len), *content, len)));
@@ -51,7 +51,7 @@ int		get_next_line(int fd, char **line)
 	static t_list	*files;
 	t_list			*file;
 
-	if ((fd < 0 || line == NULL || read(fd, buf, 0) < 0))
+	if ((fd < 0 || line == NULL || read(fd, buf, 0) < 0) || BUFF_SIZE < 1)
 		return (-1);
 	file = handle_file(&files, fd);
 	while ((ret = read(fd, buf, BUFF_SIZE)))

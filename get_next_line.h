@@ -17,7 +17,7 @@
 # include <unistd.h>
 # include "./libft/libft.h"
 
-# define BUFF_SIZE 300
+# define BUFF_SIZE 50
 # define ALLOCATED(x) if (!x) return (-1);
 # define ISNULL(x) if (!x) return (NULL);
 # define CONTENT(x) ((t_file*)((x->content)))->content
