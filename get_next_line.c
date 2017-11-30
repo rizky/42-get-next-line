@@ -79,12 +79,12 @@ int		get_next_line(int fd, char **line)
 	file = handle_file(&files, fd);
 	while ((ret = read(fd, buf, BUFF_SIZE)))
 	{
+		if (is_binary(buf))
+			return (-1);
 		buf[ret] = '\0';
 		ALLOCATED((CONTENT(file) = ft_strjoin(CONTENT(file), buf)));
 		ft_strdel(&(START(file)));
 		START(file) = CONTENT(file);
-		if (is_binary(buf))
-			return (-1);
 		if (ft_strchr(CONTENT(file), '\n'))
 			break ;
 	}
