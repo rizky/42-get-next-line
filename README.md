@@ -32,3 +32,5 @@ int main(int ac, char **av) {
 
 }
 ```
+
+clang main.c get_next_line.c -I libft/ libft/libft.a
