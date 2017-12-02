@@ -40,20 +40,20 @@ char	*retrive_line(char **content)
 	{
 		len = ft_strchr(*content, '\n') - *content;
 		line = ft_strncpy(ft_strnew(len), *content, len);
-		*content += (len + 1); 
+		*content += (len + 1);
 	}
 	else
 	{
 		len = ft_strlen(*content);
 		line = ft_strncpy(ft_strnew(len), *content, len);
-		*content += len; 
+		*content += len;
 	}
 	return (line);
 }
 
 int		is_binary(const void *data)
 {
-   	size_t			i;
+	size_t			i;
 	unsigned char	*dst_p;
 
 	i = 0;
